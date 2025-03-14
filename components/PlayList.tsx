@@ -1,4 +1,3 @@
-
 import React from "react";
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from "react-native";
 
@@ -10,7 +9,7 @@ interface PlaylistProps {
 const Playlist: React.FC<PlaylistProps> = ({ audioFiles, onSelectAudio }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Playlist</Text>
+      <Text style={styles.title}>🎼 Liste des chansons</Text>
       <FlatList
         data={audioFiles}
         keyExtractor={(item) => item.id}
@@ -26,18 +25,18 @@ const Playlist: React.FC<PlaylistProps> = ({ audioFiles, onSelectAudio }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    flex: 1,
+    padding: 10,
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
     marginBottom: 10,
   },
   item: {
     padding: 10,
-    backgroundColor: "#f0f0f0",
-    marginVertical: 5,
-    borderRadius: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
   },
   text: {
     fontSize: 16,

@@ -10,7 +10,7 @@ const Header = () => {
         <TouchableOpacity>
           <Ionicons name="menu" size={28} color="black" />
         </TouchableOpacity>
-        <Text style={styles.title}>HaRicka</Text>
+        <Text style={styles.title}>Vazou</Text>
         <TouchableOpacity>
           <Ionicons name="ellipsis-vertical" size={24} color="black" />
         </TouchableOpacity>

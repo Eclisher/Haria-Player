@@ -11,35 +11,38 @@ const Player: React.FC<PlayerProps> = ({ audioUri }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    loadSound();
-    return () => unloadSound();
+    loadAudio();
+    return () => {
+      if (sound) {
+        sound.unloadAsync();
+      }
+    };
   }, [audioUri]);
 
-  const loadSound = async () => {
-    if (sound) await sound.unloadAsync();
+  const loadAudio = async () => {
+    if (sound) {
+      await sound.unloadAsync();
+    }
     const { sound: newSound } = await Audio.Sound.createAsync({ uri: audioUri });
     setSound(newSound);
   };
 
-  const unloadSound = async () => {
-    if (sound) await sound.unloadAsync();
-  };
-
   const togglePlayPause = async () => {
-    if (!sound) return;
-    if (isPlaying) {
-      await sound.pauseAsync();
-    } else {
-      await sound.playAsync();
+    if (sound) {
+      if (isPlaying) {
+        await sound.pauseAsync();
+      } else {
+        await sound.playAsync();
+      }
+      setIsPlaying(!isPlaying);
     }
-    setIsPlaying(!isPlaying);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Lecture en cours...</Text>
+      <Text style={styles.text}>En train de jouer...</Text>
       <TouchableOpacity style={styles.button} onPress={togglePlayPause}>
-        <Text style={styles.buttonText}>{isPlaying ? "Pause" : "Play"}</Text>
+        <Text style={styles.buttonText}>{isPlaying ? "⏸ Pause" : "▶️ Jouer"}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -47,8 +50,8 @@ const Player: React.FC<PlayerProps> = ({ audioUri }) => {
 
 const styles = StyleSheet.create({
   container: {
+    padding: 20,
     alignItems: "center",
-    marginTop: 20,
   },
   text: {
     fontSize: 18,
@@ -56,14 +59,13 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 10,
-    backgroundColor: "#1DB954",
+    backgroundColor: "#6200ea",
     borderRadius: 5,
   },
   buttonText: {
     color: "white",
-    fontWeight: "bold",
+    fontSize: 16,
   },
 });
 
 export default Player;
-
